@@ -7,6 +7,7 @@ import com.soccer.model.entity.Team;
 
 public class viewTeam {
     public static Controller controlador;
+
     public void start() {
         Scanner scanner = new Scanner(System.in);
 
@@ -34,30 +35,95 @@ public class viewTeam {
                     break;
 
                 case 2:
+                    System.out.println("Digite el codigo del equipo a actualizar:");
+                    codigoEquipo = scanner.nextLine();
+                    if(!controlador.equipos.containsKey(codigoEquipo)){
+                        System.out.println("No se encontro el equipo");
+                        System.out.println("Oprima enter para continuar");
+                        scanner.nextLine();
+                        break;
+                    }
+                    
+                    Team equ = controlador.equipos.get(codigoEquipo);
+                    System.out.println("1. Cambiar nombre");
+                    System.out.println("2. Cambiar ciudad");
+                    System.out.println("3. Salir");
+                    int op = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (op) {
+                        case 1:
+                            System.out.println("Ingrese el nuevo nombre");
+                            equ.setNombre(scanner.nextLine());
+                            System.out.println("Equipo actualizado exitosamente");
+                            System.out.println("Oprima enter para continuar");
+                            scanner.nextLine();
+                            break;
+                        case 2:
+                            System.out.println("Ingrese la nueva ciudad");
+                            equ.setNombre(scanner.nextLine());
+                            System.out.println("Equipo actualizado exitosamente");
+                            System.out.println("Oprima enter para continuar");
+                            scanner.nextLine();
+                            break;
+                        case 3:
+                            break;
+                    
+                        default:
+                            System.out.println("La opcion no es valida");
+                            System.out.println("Oprima enter para continuar");
+                            scanner.nextLine();
+                            break;
+                    }
+
 
                     break;
 
                 case 3:
-                    Team eq = new Team();
-                    String codigoE = "001";
-                    eq = controlador.equipos.get(codigoE);
+                    // Team eq = new Team();
+                    // String codigoE = "equ-1";
+                    System.out.println("Digite el codigo del equipo a actualizar:");
+                    codigoEquipo = scanner.nextLine();
+                    if(!controlador.equipos.containsKey(codigoEquipo)){
+                        System.out.println("No se encontro el equipo");
+                        System.out.println("Oprima enter para continuar");
+                        scanner.nextLine();
+                        break;
+                    }
+                    
+                    Team eq = controlador.getEquipoById(codigoEquipo);
                     System.out.println("Mi equipo" + eq.getNombre());
                     break;
                 case 4:
 
+                    System.out.println("Ingrese el codigo del equipo a eliminar:");
+                    codigoEquipo = scanner.nextLine();
+                    if (!controlador.equipos.containsKey(codigoEquipo)) {
+                        System.out.println("No se encontró el equipo");
+                    } else {
+                        controlador.equipos.remove(codigoEquipo);
+                        System.out.println("Equipo eliminado correctamente");
+                    }
+                    scanner.nextLine();
                     break;
 
                 case 5:
 
+                    System.out.println("Listado de todos los equipos:");
+                    for (String key : controlador.equipos.keySet()) {
+                        Team team = controlador.equipos.get(key);
+                        System.out.println("Código: " + key + ", Nombre: " + team.getNombre() + ", Ciudad: " + team.getCiudad());
+                    }
+                    scanner.nextLine();
                     break;
 
                 case 6:
-                    scanner.close();
-                    System.exit(0);
-                    break;
+                    System.out.println("Saliendo del programa");
+                    return;
 
                 default:
                     System.out.println("Opcion invalida, intentelo de nuevo.");
+                    scanner.nextLine();
+                    break;
             }
         }
     }
