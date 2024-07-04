@@ -3,9 +3,10 @@ package com.soccer.view;
 import java.util.Scanner;
 
 import com.soccer.Controller;
+import com.soccer.model.entity.Player;
 import com.soccer.model.entity.Team;
 
-public class viewTeam {
+public class ViewTeam {
     public static Controller controlador;
 
     public void start() {
@@ -23,6 +24,7 @@ public class viewTeam {
 
             switch (choice) {
                 case 1:
+                        System.out.print("\033[H\033[2J");
                         Team equipo = new Team();
                         String codigoEquipo = null;
                         System.out.println("Ingrese el codigo del equipo :");
@@ -35,23 +37,27 @@ public class viewTeam {
                     break;
 
                 case 2:
-                    System.out.println("Digite el codigo del equipo a actualizar:");
-                    codigoEquipo = scanner.nextLine();
-                    if(!controlador.equipos.containsKey(codigoEquipo)){
-                        System.out.println("No se encontro el equipo");
-                        System.out.println("Oprima enter para continuar");
-                        scanner.nextLine();
-                        break;
-                    }
+                        System.out.print("\033[H\033[2J");
+                        System.out.println("Digite el codigo del equipo a actualizar:");
+                        codigoEquipo = scanner.nextLine();
+                        if(!controlador.equipos.containsKey(codigoEquipo)){
+                            System.out.print("\033[H\033[2J");
+                            System.out.println("No se encontro el equipo");
+                            System.out.println("Oprima enter para continuar");
+                            scanner.nextLine();
+                            break;
+                        }
                     
                     Team equ = controlador.equipos.get(codigoEquipo);
                     System.out.println("1. Cambiar nombre");
                     System.out.println("2. Cambiar ciudad");
-                    System.out.println("3. Salir");
+                    System.out.println("3. Agregar jugador");
+                    System.out.println("4. Salir");
                     int op = scanner.nextInt();
                     scanner.nextLine();
                     switch (op) {
                         case 1:
+                            System.out.print("\033[H\033[2J");
                             System.out.println("Ingrese el nuevo nombre");
                             equ.setNombre(scanner.nextLine());
                             System.out.println("Equipo actualizado exitosamente");
@@ -59,6 +65,7 @@ public class viewTeam {
                             scanner.nextLine();
                             break;
                         case 2:
+                            System.out.print("\033[H\033[2J");
                             System.out.println("Ingrese la nueva ciudad");
                             equ.setNombre(scanner.nextLine());
                             System.out.println("Equipo actualizado exitosamente");
@@ -66,6 +73,13 @@ public class viewTeam {
                             scanner.nextLine();
                             break;
                         case 3:
+                            System.out.print("\033[H\033[2J");
+                            System.out.println("Ingrese el codigo del jugador");
+                            String codJugador = scanner.nextLine();
+                            equ.setLstJugadores(controlador.getJugadoresById(codJugador));
+
+                        case 4:
+                            System.out.print("\033[H\033[2J");
                             break;
                     
                         default:
@@ -81,20 +95,21 @@ public class viewTeam {
                 case 3:
                     // Team eq = new Team();
                     // String codigoE = "equ-1";
-                    System.out.println("Digite el codigo del equipo a actualizar:");
-                    codigoEquipo = scanner.nextLine();
-                    if(!controlador.equipos.containsKey(codigoEquipo)){
-                        System.out.println("No se encontro el equipo");
-                        System.out.println("Oprima enter para continuar");
-                        scanner.nextLine();
+                        System.out.print("\033[H\033[2J");
+                        System.out.println("Digite el codigo del equipo a actualizar:");
+                        codigoEquipo = scanner.nextLine();
+                        if(!controlador.equipos.containsKey(codigoEquipo)){
+                            System.out.println("No se encontro el equipo");
+                            System.out.println("Oprima enter para continuar");
+                            scanner.nextLine();
+                            break;
+                        }
+                        
+                        Team eq = controlador.getEquipoById(codigoEquipo);
+                        System.out.println("Mi equipo" + eq.getNombre());
                         break;
-                    }
-                    
-                    Team eq = controlador.getEquipoById(codigoEquipo);
-                    System.out.println("Mi equipo" + eq.getNombre());
-                    break;
                 case 4:
-
+                    System.out.print("\033[H\033[2J");
                     System.out.println("Ingrese el codigo del equipo a eliminar:");
                     codigoEquipo = scanner.nextLine();
                     if (!controlador.equipos.containsKey(codigoEquipo)) {
@@ -107,20 +122,25 @@ public class viewTeam {
                     break;
 
                 case 5:
-
+                    System.out.print("\033[H\033[2J");
                     System.out.println("Listado de todos los equipos:");
                     for (String key : controlador.equipos.keySet()) {
                         Team team = controlador.equipos.get(key);
                         System.out.println("Código: " + key + ", Nombre: " + team.getNombre() + ", Ciudad: " + team.getCiudad());
+                        for(Player jug : team.getLstJugadores()){
+                            System.out.println("id: " + jug.getId() + " | nombre : " + jug.getNombre());
+                        }
                     }
                     scanner.nextLine();
                     break;
 
                 case 6:
+                    System.out.print("\033[H\033[2J");
                     System.out.println("Saliendo del programa");
                     return;
 
                 default:
+                    System.out.print("\033[H\033[2J");
                     System.out.println("Opcion invalida, intentelo de nuevo.");
                     scanner.nextLine();
                     break;

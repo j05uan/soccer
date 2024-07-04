@@ -10,7 +10,7 @@ public class Player extends Person {
         this.dorsal = dorsal;
         this.posicion = posicion;
     }
-    public Player(int id, String nombre, String apellido, int edad, int dorsal, String posicion) {
+    public Player(String id, String nombre, String apellido, int edad, int dorsal, String posicion) {
         super(id, nombre, apellido, edad);
         this.dorsal = dorsal;
         this.posicion = posicion;

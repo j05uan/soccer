@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.soccer.Controller;
 import com.soccer.model.entity.Player;
 
-public class viewPlayer {
+public class ViewPlayer {
 
        public static Controller controlador;
 
@@ -24,10 +24,12 @@ public class viewPlayer {
 
                      switch (choice) {
                             case 1:
+                                   System.out.print("\033[H\033[2J");
                                    Player jugador = new Player();
                                    String codigoJugador = null;
                                    System.out.println("Ingrese el codigo del Jugador: ");
                                    codigoJugador = scanner.nextLine();
+                                   jugador.setId(codigoJugador);
                                    System.out.println("Ingrese el nombre del Jugador: ");
                                    jugador.setNombre(scanner.nextLine());
                                    System.out.println("Ingrese los Apellidos del Jugador: ");
@@ -41,7 +43,8 @@ public class viewPlayer {
                                    controlador.jugadores.put(codigoJugador, jugador);
                                    break;
                             case 2:
-                                   System.out.println("----Menu de Actualizacion de jugadro -----");
+                                   System.out.print("\033[H\033[2J");
+                                   System.out.println("----Menu de Actualizacion de jugador -----");
                                    System.out.println("Ingrese el ocdigo del Jugador");
                                    codigoJugador = scanner.nextLine();
                                    if(!controlador.jugadores.containsKey(codigoJugador)){
@@ -62,13 +65,15 @@ public class viewPlayer {
                                    scanner.nextLine();
                                    switch (op) {
                                           case 1:
-                                                 System.out.println(" Ingrese el nuevo la acrualizacion del nombre: ");
+                                                 System.out.print("\033[H\033[2J");
+                                                 System.out.println(" Ingrese la actualizacion del nombre: ");
                                                  jugadorr.setNombre(scanner.nextLine());
                                                  System.out.println("Jugador actualizado exitosamente");
                                                  System.out.println("Oprima enter para continuar");
                                                  scanner.nextLine();
                                                  break;
                                           case 2:
+                                                 System.out.print("\033[H\033[2J");
                                                  System.out.println("Ingrese el nuevo Apellido:  ");
                                                  jugadorr.setApellido(scanner.nextLine());
                                                  System.out.println("Jugador actualizado exitosamente");
@@ -76,6 +81,7 @@ public class viewPlayer {
                                                  scanner.nextLine();
                                                  break;
                                           case 3:
+                                                 System.out.print("\033[H\033[2J");
                                                  System.out.println("Ingrese la acutilizacion de la edad: ");
                                                  jugadorr.setEdad(scanner.nextInt());
                                                  System.out.println("Jugador actualizado exitosamente");
@@ -83,6 +89,7 @@ public class viewPlayer {
                                                  scanner.nextLine();
                                                  break;
                                           case 4:
+                                                 System.out.print("\033[H\033[2J");
                                                  System.out.println("Ingrese la actulizacion del dorsal: ");
                                                  jugadorr.setDorsal(scanner.nextInt());
                                                  System.out.println("Jugador actualizado exitosamente");
@@ -90,13 +97,18 @@ public class viewPlayer {
                                                  scanner.nextLine();
                                                  break;
                                           case 5:
+                                                 System.out.print("\033[H\033[2J");
                                                  System.out.println("Ingrese la actulizacion de la posicion: ");
                                                  jugadorr.setPosicion(scanner.nextLine());
                                                  System.out.println("Jugador actualizado exitosamente");
                                                  System.out.println("Oprima enter para continuar");
                                                  scanner.nextLine();
                                                  break;
+                                          case 6:
+                                                 System.out.print("\033[H\033[2J");
+                                                 break;
                                           default:
+                                                 System.out.print("\033[H\033[2J");
                                                  System.out.println("La opcion no es valida");
                                                  System.out.println("Oprima enter para continuar");
                                                  scanner.nextLine();
@@ -104,18 +116,45 @@ public class viewPlayer {
                                    }
                                    break;
                             case 3:
-                            System.out.println("----Menu de Busqueda -----");
-                            System.out.println("Ingrese el codigo del jugador: ");
-                            codigoJugador = scanner.nextLine();
-                            if(!controlador.jugadores.containsKey(codigoJugador)){
-                                   System.out.println("No se encontro el Jugador");
-                                   System.out.println("Oprima enter para continuar");
+                                   System.out.print("\033[H\033[2J");
+                                   System.out.println("----Menu de Busqueda -----");
+                                   System.out.println("Ingrese el codigo del jugador: ");
+                                   codigoJugador = scanner.nextLine();
+                                   if(!controlador.jugadores.containsKey(codigoJugador)){
+                                          System.out.print("\033[H\033[2J");
+                                          System.out.println("No se encontro el Jugador");
+                                          System.out.println("Oprima enter para continuar");
+                                          scanner.nextLine();
+                                          break;
+                                   }
+                                   Player jugadoor = controlador.getJugadoresById(codigoJugador);
+                                   System.out.println("Jugador " + jugadoor.getNombre());
+                                   break;
+                            
+                            case 4:  
+                                   System.out.print("\033[H\033[2J");
+                                   System.out.println("Ingrese el codigo del Jugador que desea Eliminar: ");
+                                   codigoJugador = scanner.nextLine();
+                                   if (!controlador.jugadores.containsKey(codigoJugador)) {
+                                          System.out.println("No se encontro el Jugador: ");                                          
+                                   } else{
+                                          controlador.jugadores.remove(codigoJugador);
+                                          System.out.println("Equipo eliminado Correctamente: ");
+                                   }
                                    scanner.nextLine();
                                    break;
-                            }
-                            Player jugadoor = controlador.getJugadoresById(codigoJugador);
+                            case 5:
+                                   System.out.print("\033[H\033[2J");
+                                   System.out.println("Listado de todos los Jugadores: ");
+                                   for (String key : controlador.jugadores.keySet()){
+                                          Player jugadorPlayer = controlador.jugadores.get(key);
+                                          System.out.println("Codigo :" + key + "| Nombre: " + jugadorPlayer.getNombre() + "| Apellido: " + jugadorPlayer.getApellido() + "| Edad :" + jugadorPlayer.getEdad() + "| Dorsal: " + jugadorPlayer.getDorsal() + "| Posicion: " + jugadorPlayer.getPosicion());
+                                          
+                                   }
                             
-
+                            case 6:
+                                   System.out.print("\033[H\033[2J");
+                                   return;
                          default:
                              throw new AssertionError();
                      }

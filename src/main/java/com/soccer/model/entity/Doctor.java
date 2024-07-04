@@ -8,7 +8,7 @@ public class Doctor extends Person {
         this.titulo = titulo;
         this.expYear = expYear;
     }
-    public Doctor(int id, String nombre, String apellido, int edad, String titulo, int expYear) {
+    public Doctor(String id, String nombre, String apellido, int edad, String titulo, int expYear) {
         super(id, nombre, apellido, edad);
         this.titulo = titulo;
         this.expYear = expYear;
